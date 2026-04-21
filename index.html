@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> so illegal</title>
+    <style>
+        /* Modern Gradient Background */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+            overflow: hidden;
+        }
+
+        /* Glassmorphism Container */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            /* Semi-transparent */
+            backdrop-filter: blur(15px);
+            /* The "Blur" effect */
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            /* Glass edge */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            padding: 40px;
+            width: 450px;
+            text-align: center;
+            color: white;
+        }
+
+        h2 {
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        /* Neon Input Field */
+        input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            outline: none;
+            color: white;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid #00d2ff;
+        }
+
+        /* Glowing Button */
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.7);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        #status {
+            margin-top: 20px;
+            font-size: 13px;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        /* Animated Blobs for background depth */
+        .blob {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(0, 210, 255, 0.3);
+            filter: blur(80px);
+            border-radius: 50%;
+            z-index: -1;
+            animation: move 10s infinite alternate;
+        }
+
+        @keyframes move {
+            from {
+                transform: translate(-100px, -100px);
+            }
+
+            to {
+                transform: translate(100px, 100px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="blob"></div>
+    <div class="glass-card">
+        <h2>MP3 CONVERTER</h2>
+        <input type="text" id="urlInput" placeholder="Paste YouTube Link Here...">
+        <button onclick="runDownload()">Download Now</button>
+        <div id="status"> </div>
+    </div>
+
+    <script>
+        async function runDownload() {
+            const url = document.getElementById('urlInput').value;
+            const status = document.getElementById('status');
+            if (!url) return alert("Please enter a URL");
+
+            status.innerText = "Connecting to server...";
+
+            try {
+                const response = await fetch('/download', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url: url })
+                });
+                const result = await response.json();
+                status.innerText = result.message;
+            } catch (err) {
+                status.innerText = "Error: Check your Python console.";
+            }
+        }
+    </script>
+</body>
+
+</html>
