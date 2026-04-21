@@ -2,11 +2,7 @@
 ```pip install flask yt-dlp```
    
 2. File Structure (Create a folder named Meow):
-Meow/
-├── app.py
-├── downloads/
-└── templates/
-    └── index.html
+<img width="175" height="128" alt="image" src="https://github.com/user-attachments/assets/bfbadc71-89c7-4fb6-abbc-8e951891ab37" />
 
 4. In CMD navigate to your folder and run:
 ```cd path/to/MyProject```
